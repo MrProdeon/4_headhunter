@@ -37,3 +37,20 @@ def print_vacancies(vacancies : list[Vacancy]) -> str:
         resulted_string += string
 
     print(resulted_string)
+
+def dicts_to_objects(vacancies : list[dict]):
+    vacancy_list = []
+    for vacancy in vacancies:
+        vacancy_list.append(Vacancy(**vacancy))
+
+    return vacancy_list
+
+def end_or_continue():
+    user_input = input("Хотите продолжить работу с программой? 1 - да, 2 - нет : ")
+    while user_input not in ("1", "2"):
+        user_input = input("Хотите продолжить работу с программой? 1 - да, 2 - нет")
+
+    if user_input == "1":
+        return True
+    return False
+
