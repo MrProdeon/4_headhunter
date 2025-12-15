@@ -51,7 +51,8 @@ class JsonWorker(FileWorker):
             vacancy_dict = {"title" : vacancy.title,
                             "link" : vacancy.link,
                             "salary" : vacancy.salary,
-                            "description" : vacancy.description}
+                            "salary_from" : vacancy.salary_from,
+                            "salary_to" : vacancy.salary_to}
             if vacancy_dict not in data:
                 data.append(vacancy_dict)
 
