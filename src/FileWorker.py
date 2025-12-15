@@ -5,7 +5,7 @@ from src.Vacancy import Vacancy
 class FileWorker(ABC):
 
     @abstractmethod
-    def get_data(self, path_to_file):
+    def get_data(self):
         pass
 
     @abstractmethod
@@ -22,11 +22,11 @@ class JsonWorker(FileWorker):
         self.__filename = filename
 
 
-    def get_data(self, path_to_file : str) -> list:
+    def get_data(self) -> list:
         """Чтение JSON-файла и получение данных о вакансиях из него.
         Если файл пуст или не существует, вернет пустой список"""
         try:
-            with open(path_to_file, "r", encoding="utf-8") as file:
+            with open(self.__filename, "r", encoding="utf-8") as file:
                 try:
                     data = json.load(file)
                 except json.JSONDecodeError:
@@ -42,7 +42,8 @@ class JsonWorker(FileWorker):
         """Добавление вакансий в JSON-файл.
         Формируется словарь на основе атрибутов объекта и добавляется в список, а после
         этого список с новыми данными сохраняется в файл."""
-        with open(self.__filename, "r+", encoding="utf-8") as file:
+        with open(self.__filename, "a+", encoding="utf-8") as file:
+            file.seek(0)
             try:
                 data = json.load(file)
             except json.JSONDecodeError:
@@ -50,7 +51,6 @@ class JsonWorker(FileWorker):
 
             vacancy_dict = {"title" : vacancy.title,
                             "link" : vacancy.link,
-                            "salary" : vacancy.salary,
                             "salary_from" : vacancy.salary_from,
                             "salary_to" : vacancy.salary_to}
             if vacancy_dict not in data:
