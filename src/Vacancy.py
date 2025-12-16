@@ -1,3 +1,6 @@
+from __future__ import annotations
+
+
 class Vacancy:
     """Класс для работы с вакансиями.
     У каждой вакансии должно быть указано название, ссылка на вакансию, зарплата и описание.
@@ -7,44 +10,48 @@ class Vacancy:
     Так же проверяем указано ли название. Если нет, то прописываем Без названия.
     """
 
-    __slots__ = ("title", "link", "salary", "description")
+    __slots__ = ("title", "link", "salary_from", "salary_to", "description")
 
-    def __init__(self, title: str, link: str, salary: int | float, description: str):
+    def __init__(self, title: str, link: str, salary_from: int | float | None, salary_to: int | float | None):
         self.title = self.__validate_title(title)
         self.link = link
-        self.salary = self.__validate_salary(salary)
-        self.description = description
+        self.salary_from = self.__validate_salary(salary_from)
+        self.salary_to = self.__validate_salary(salary_to)
 
-    def __gt__(self, other):
+    def __gt__(self, other : Vacancy | int | float) -> bool:
         if isinstance(other, Vacancy):
             return self.salary > other.salary
         elif isinstance(other, int) or isinstance(other, float):
             return self.salary > other
         raise ValueError("Переданы несравнимые данные")
 
-    def __ge__(self, other):
+    def __ge__(self, other : Vacancy | int | float) -> bool:
         if isinstance(other, Vacancy):
             return self.salary >= other.salary
         elif isinstance(other, int) or isinstance(other, float):
             return self.salary >= other
         raise ValueError("Переданы несравнимые данные")
 
-    def __lt__(self, other):
+    def __lt__(self, other : Vacancy | int | float) -> bool:
         if isinstance(other, Vacancy):
             return self.salary < other.salary
         elif isinstance(other, int) or isinstance(other, float):
             return self.salary < other
         raise ValueError("Переданы несравнимые данные")
 
-    def __le__(self, other):
+    def __le__(self, other : Vacancy | int | float) -> bool:
         if isinstance(other, Vacancy):
             return self.salary <= other.salary
         elif isinstance(other, int) or isinstance(other, float):
             return self.salary <= other
         raise ValueError("Переданы несравнимые данные")
 
+    @property
+    def salary(self)  -> int | float:
+        return max(self.salary_from, self.salary_to)
+
     @staticmethod
-    def __validate_title(title: str):
+    def __validate_title(title: str) -> str:
         if not isinstance(title, str) or not title:
             title = "Без названия"
         else:
@@ -52,9 +59,23 @@ class Vacancy:
         return title
 
     @staticmethod
-    def __validate_salary(salary: int | float):
+    def __validate_salary(salary: int | float | None) -> int:
+
+        if isinstance(salary, (int, float)):
+            return int(salary)
+
         if salary is None or isinstance(salary, str):
-            salary = 0
-        else:
-            salary = salary
-        return salary
+            return 0
+
+        return 0
+
+    @staticmethod
+    def cast_to_object_list(vacancies: list[dict]) -> list:
+        vacancy_list = []
+        for vacancy in vacancies:
+            salary = vacancy.get("salary")
+            salary_from = salary.get("from") if salary else None
+            salary_to = salary.get("to") if salary else None
+
+            vacancy_list.append(Vacancy(vacancy["name"], vacancy["alternate_url"], salary_from, salary_to))
+        return vacancy_list
