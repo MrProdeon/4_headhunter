@@ -12,13 +12,13 @@ def test_json_worker():
     data = JsonWorker("add_test.json")
     m = mock_open(read_data='{"id" : 1, "name" : "python-developer", "salary" : 90000}')
     with patch("builtins.open", m):
-        result = data.get_data("test.json")
+        result = data.get_data()
 
     assert result == {"id": 1, "name": "python-developer", "salary": 90000}
 
     m2 = mock_open(read_data="")
     with patch("builtins.open", m2):
-        result2 = data.get_data("test.json")
+        result2 = data.get_data()
 
     assert result2 == []
 
@@ -26,7 +26,7 @@ def test_json_worker():
 def test_json_worker_nofile():
     data = JsonWorker("error")
 
-    assert data.get_data("error") == []
+    assert data.get_data() == []
 
 
 def test_add_data():
