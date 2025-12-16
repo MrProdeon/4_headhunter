@@ -18,7 +18,7 @@ class FileWorker(ABC):
 
 class JsonWorker(FileWorker):
 
-    def __init__(self, filename="json_data.json"):
+    def __init__(self, filename="data/json_data.json"):
         self.__filename = filename
 
 
