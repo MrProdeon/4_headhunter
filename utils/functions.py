@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from src.Vacancy import Vacancy
 
 
@@ -30,6 +32,7 @@ def ranged_vacancies(vacancies: list[Vacancy], range_from: int | float, range_to
 
 
 def print_vacancies(vacancies: list[Vacancy]) -> str:
+    """Функция для фомирования строки и вывода этой строки"""
 
     resulted_string = ""
 
@@ -42,6 +45,7 @@ def print_vacancies(vacancies: list[Vacancy]) -> str:
 
 
 def dicts_to_objects(vacancies: list[dict]) -> list:
+    """Функция для преобразования списка словарей из читаемого файла в список объектов класса Vacancy"""
     vacancy_list = []
     for vacancy in vacancies:
         vacancy_list.append(Vacancy(**vacancy))
@@ -50,6 +54,7 @@ def dicts_to_objects(vacancies: list[dict]) -> list:
 
 
 def end_or_continue() -> bool:
+    """Вспомогательная функция для продолжения или остановки программы"""
     user_input = input("Хотите продолжить работу с программой? 1 - да, 2 - нет : ")
     while user_input not in ("1", "2"):
         user_input = input("Хотите продолжить работу с программой? 1 - да, 2 - нет")

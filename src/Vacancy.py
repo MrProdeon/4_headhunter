@@ -52,6 +52,7 @@ class Vacancy:
 
     @staticmethod
     def __validate_title(title: str) -> str:
+        """Метод для валидации названия. Если не передали ничего или не строку, то будет без названия"""
         if not isinstance(title, str) or not title:
             title = "Без названия"
         else:
@@ -60,6 +61,7 @@ class Vacancy:
 
     @staticmethod
     def __validate_salary(salary: int | float | None) -> int:
+        """Метод для валидации зарплаты. Если зарплата не число, то вернет 0"""
 
         if isinstance(salary, (int, float)):
             return int(salary)
@@ -71,6 +73,7 @@ class Vacancy:
 
     @staticmethod
     def cast_to_object_list(vacancies: list[dict]) -> list:
+        """Методя для преобразования списка словарей в список объектов класса Vacancy"""
         vacancy_list = []
         for vacancy in vacancies:
             salary = vacancy.get("salary")
