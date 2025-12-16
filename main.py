@@ -1,29 +1,39 @@
-from src.connector import Connector, HeadHunterApi
-from utils.functions import ranged_vacancies, top_n, print_vacancies, dicts_to_objects, end_or_continue
-from src.Vacancy import Vacancy
+from src.connector import HeadHunterApi
 from src.FileWorker import JsonWorker
+from src.Vacancy import Vacancy
+from utils.functions import dicts_to_objects, end_or_continue, print_vacancies, ranged_vacancies, top_n
 
-hh_api = HeadHunterApi("https://api.hh.ru/vacancies", {"User-Agent" : "test for skypro"})
+hh_api = HeadHunterApi("https://api.hh.ru/vacancies", {"User-Agent": "test for skypro"})
 json_worker = JsonWorker("data/json_data.json")
 
-def main():
+
+def main() -> None:
     while True:
         try:
-            target = sorted(list(map(int, input("""По каким критериям отфильтровать вакансии?
+            target = sorted(
+                list(
+                    map(
+                        int,
+                        input(
+                            """По каким критериям отфильтровать вакансии?
 1 - ключевые слова
 2 - по диапазону зарплат
 3 - по самым высоким зарплатам
 4 - удалёнка или офис
 5 - просмотреть уже записанные вакансии из файла (если этот пункт будет выбран, то будет обработан только он)
 (Напишите в одну строку через пробел)
-""").strip().split())))
+"""
+                        )
+                        .strip()
+                        .split(),
+                    )
+                )
+            )
         except ValueError:
             continue
         if all(number in (1, 2, 3, 4, 5) for number in target):
 
-
             if 5 in target:
-                target = 5
                 vacancies = json_worker.get_data()
                 if len(vacancies) == 0:
                     print("Пусто")
@@ -48,25 +58,33 @@ def main():
                 while work_f not in ("1", "2", "3"):
                     work_f = input("1 - для поиска удалёнки, 2 - для поиска офиса, 3 - гибрид")
                 if work_f == "1":
-                    vacancies = [vacancy for vacancy in vacancies if
-                                 any(work_format["id"] == "REMOTE" for work_format in vacancy["work_format"])]
+                    vacancies = [
+                        vacancy
+                        for vacancy in vacancies
+                        if any(work_format["id"] == "REMOTE" for work_format in vacancy["work_format"])
+                    ]
                 if work_f == "2":
-                    vacancies = [vacancy for vacancy in vacancies if
-                                 any(work_format["id"] == "ON_SITE" for work_format in vacancy["work_format"])]
+                    vacancies = [
+                        vacancy
+                        for vacancy in vacancies
+                        if any(work_format["id"] == "ON_SITE" for work_format in vacancy["work_format"])
+                    ]
                 if work_f == "3":
-                    vacancies = [vacancy for vacancy in vacancies if
-                                 any(work_format["id"] == "HYBRID" for work_format in vacancy["work_format"])]
-
+                    vacancies = [
+                        vacancy
+                        for vacancy in vacancies
+                        if any(work_format["id"] == "HYBRID" for work_format in vacancy["work_format"])
+                    ]
 
             vacancies = Vacancy.cast_to_object_list(vacancies)
 
             if 2 in target:
                 while True:
-                    range_from = input("Введите начальную зарплату: ")
-                    range_to = input("Введите конечную зарплату: ")
+                    range_from_str = input("Введите начальную зарплату: ")
+                    range_to_str = input("Введите конечную зарплату: ")
                     try:
-                        range_from = int(range_from)
-                        range_to = int(range_to)
+                        range_from = int(range_from_str)
+                        range_to = int(range_to_str)
                         break
                     except ValueError:
                         print("Введите число!")
@@ -75,10 +93,10 @@ def main():
                 vacancies = ranged_vacancies(vacancies, range_from, range_to)
 
             if 3 in target:
-                n = input("Какое отобразить количество вакансий с максимальной ЗП?  ")
+                n_str = input("Какое отобразить количество вакансий с максимальной ЗП?  ")
                 while True:
                     try:
-                        n = int(n)
+                        n = int(n_str)
                         break
                     except ValueError:
                         print("Введите число!")
@@ -99,15 +117,7 @@ def main():
             break
 
 
-
-
-
 # Сделать перелистывание страницы
-
-
-
-
-
 
 
 if __name__ == "__main__":

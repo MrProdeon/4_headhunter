@@ -10,6 +10,7 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.12"
+types-requests = "^2.32.4.20250913"
 
 
 [tool.poetry.group.dev.dependencies]

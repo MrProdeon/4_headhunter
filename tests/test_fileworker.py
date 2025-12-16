@@ -1,8 +1,12 @@
+# mypy: ignore-errors
+
 from unittest.mock import mock_open, patch
+
 from src.FileWorker import JsonWorker
 from src.Vacancy import Vacancy
 
 vacancy = Vacancy("developer", "https", 90000, 100000)
+
 
 def test_json_worker():
     data = JsonWorker("add_test.json")
@@ -10,13 +14,14 @@ def test_json_worker():
     with patch("builtins.open", m):
         result = data.get_data("test.json")
 
-    assert result == {"id" : 1, "name" : "python-developer", "salary" : 90000}
+    assert result == {"id": 1, "name": "python-developer", "salary": 90000}
 
-    m2 = mock_open(read_data = "")
+    m2 = mock_open(read_data="")
     with patch("builtins.open", m2):
         result2 = data.get_data("test.json")
 
     assert result2 == []
+
 
 def test_json_worker_nofile():
     data = JsonWorker("error")
@@ -32,4 +37,3 @@ def test_add_data():
         data.add_data(vacancy)
 
     mock_dump.assert_called_once()
-
