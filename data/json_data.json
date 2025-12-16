@@ -1,0 +1,56 @@
+[
+    {
+        "title": "Data Engineer/Дата инженер (Junior)",
+        "link": "https://hh.ru/vacancy/127891259",
+        "salary_from": 0,
+        "salary_to": 100000
+    },
+    {
+        "title": "Junior Data Analyst/Аналитик данных",
+        "link": "https://hh.ru/vacancy/127825352",
+        "salary_from": 90000,
+        "salary_to": 0
+    },
+    {
+        "title": "Junior System Analyst/Cистемный аналитик",
+        "link": "https://hh.ru/vacancy/128373161",
+        "salary_from": 90000,
+        "salary_to": 0
+    },
+    {
+        "title": "Младший аналитик данных",
+        "link": "https://hh.ru/vacancy/128545820",
+        "salary_from": 80000,
+        "salary_to": 0
+    },
+    {
+        "title": "Junior Backend разработчик",
+        "link": "https://hh.ru/vacancy/128373566",
+        "salary_from": 80000,
+        "salary_to": 0
+    },
+    {
+        "title": "Junior Python разработчик",
+        "link": "https://hh.ru/vacancy/127787674",
+        "salary_from": 80000,
+        "salary_to": 0
+    },
+    {
+        "title": "Python-разработчик (фитнес-клуб)",
+        "link": "https://hh.ru/vacancy/127957890",
+        "salary_from": 80000,
+        "salary_to": 0
+    },
+    {
+        "title": "Дата инженер / аналитик данных / Junior",
+        "link": "https://hh.ru/vacancy/128447396",
+        "salary_from": 30000,
+        "salary_to": 80000
+    },
+    {
+        "title": "Младший сетевой инженер",
+        "link": "https://hh.ru/vacancy/128257888",
+        "salary_from": 80000,
+        "salary_to": 0
+    }
+]
