@@ -40,10 +40,33 @@ class HeadHunterApi(Connector):
         data = self._connect(params, url)
         return data.get("items", [])
 
-    def get_employers(self, text : str = "", ):
+    def get_employers(self, text : str = ""):
+        """
+        Метод для получения желаемых работодателей. На данный момент работодатели зафиксированы в самом методе.
+        Метод возвращает список списков, в котором каждый вложенный список - это искомые работодатели по их названию.
+        """
+        companies = ["Т-Банк", "Selectel", "X5 Tech", "Ozon Tech", "АВИТО ТЕХ", "Сбер Банк", "Альфа-Банк", "VK", "Kaspersky", "Skyeng"]
         url = "https://api.hh.ru/employers"
-        params = {"text" : text, "only_with_vacancies" : True, "page" : 0, "per_page" : 100}
-        data = self._connect(params)
+        data = []
+
+        for company in companies:
+            params = {"text" : f"{company}", "only_with_vacancies" : True, "page" : 0, "per_page" : 100}
+            response = self._connect(params, url)
+            data.append(response["items"])
+
+        return data
+
+    @staticmethod
+    def get_ids(companies : list):
+        """Метод для получения айди компаний после того как был получен ответ от хедхантера об основной информации
+        о компании """
+        ids = []
+        for i in companies:
+            for j in i:
+                ids.append(j["id"])
+
+        return ids
+
 
 
 if __name__ == "__main__":
@@ -52,5 +75,6 @@ if __name__ == "__main__":
     # obj_list = obj.get_vacancies("python")
     # print(json.dumps(obj_list, ensure_ascii=False, indent=4))
 
-    obj = HeadHunterApi("https://api.hh.ru/employers", {"User-Agent": "test for skypro"})
-    print(json.dumps(obj._connect({"per_page" : 100, "only_with_vacancies" : True}), ensure_ascii=False, indent=4))
+    obj = HeadHunterApi({"User-Agent": "test for skypro"})
+
+    print(obj.get_ids(obj.get_employers()))
