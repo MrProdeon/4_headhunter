@@ -59,11 +59,12 @@ class HeadHunterApi(Connector):
     @staticmethod
     def get_ids(companies : list):
         """Метод для получения айди компаний после того как был получен ответ от хедхантера об основной информации
-        о компании """
+        о компании.
+        Вернет список словаей, где каждый словарь - айди компании и её название."""
         ids = []
         for i in companies:
             for j in i:
-                ids.append(j["id"])
+                ids.append({j["id"] : j["name"]})
 
         return ids
 
@@ -77,4 +78,4 @@ if __name__ == "__main__":
 
     obj = HeadHunterApi({"User-Agent": "test for skypro"})
 
-    print(obj.get_ids(obj.get_employers()))
+    print(obj.get_employers())
