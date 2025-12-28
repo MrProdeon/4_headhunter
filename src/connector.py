@@ -1,5 +1,6 @@
 import json
 from abc import ABC, abstractmethod
+from src.Vacancy import Vacancy
 
 import requests
 from typing import Any
@@ -34,10 +35,14 @@ class HeadHunterApi(Connector):
         except requests.exceptions.HTTPError:
             return {}
 
-    def get_vacancies(self, text :str = "", page : int = 0) -> Any:
+    def get_vacancies(self, text :str = "", page : int = 0, employer_id = None) -> Any:
         url = "https://api.hh.ru/vacancies"
-        params = {"text": text, "page": page, "per_page": 100}
-        data = self._connect(params, url)
+        if not employer_id:
+            params = {"text": text, "page": page, "per_page": 100}
+            data = self._connect(params, url)
+        else:
+            params = {"text": text, "page": page, "per_page": 100, "employer_id" : employer_id}
+            data = self._connect(params, url)
         return data.get("items", [])
 
     def get_employers(self, text : str = ""):
@@ -78,4 +83,18 @@ if __name__ == "__main__":
 
     obj = HeadHunterApi({"User-Agent": "test for skypro"})
 
-    print(obj.get_employers())
+
+    # ПОЛУЧЕНИЕ ВАКАНСИЙ ОПРЕДЕЛЕННОГО РАБОТОДАТЕЛЯ. КАЖДЫЙ СПИСОК - ОБЪЕКТЫ ВАКАНСИЙ РАБОТОДАТЕЛЯ.
+    vacancies = []
+    for i in obj.get_ids(obj.get_employers()):
+        keys = i.keys()
+        vacancies.append(obj.get_vacancies(employer_id=list(keys)[0]))
+
+
+    a = []
+    for j in vacancies:
+        rs = Vacancy.cast_to_object_list(j)
+        a.append(rs)
+
+    print(a)
+
