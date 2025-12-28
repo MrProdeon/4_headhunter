@@ -40,9 +40,17 @@ class HeadHunterApi(Connector):
         data = self._connect(params)
         return data.get("items", [])
 
+    def get_employers(self, text : str = "", ):
+        url = "https://api.hh.ru/employers"
+        params = {"text" : text, "only_with_vacancies" : True, "page" : 0, "per_page" : 100}
+        data = self._connect(params)
+
 
 if __name__ == "__main__":
 
-    obj = HeadHunterApi("https://api.hh.ru/vacancies", {"User-Agent": "test for skypro"})
-    obj_list = obj.get_vacancies("python")
-    print(json.dumps(obj_list, ensure_ascii=False, indent=4))
+    # obj = HeadHunterApi("https://api.hh.ru/vacancies", {"User-Agent": "test for skypro"})
+    # obj_list = obj.get_vacancies("python")
+    # print(json.dumps(obj_list, ensure_ascii=False, indent=4))
+
+    obj = HeadHunterApi("https://api.hh.ru/employers", {"User-Agent": "test for skypro"})
+    print(json.dumps(obj._connect({"per_page" : 100, "only_with_vacancies" : True}), ensure_ascii=False, indent=4))
