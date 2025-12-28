@@ -9,7 +9,7 @@ class Connector(ABC):
     """Абстрактный класс для подключения к АПИ хедхантера."""
 
     @abstractmethod
-    def _connect(self, params : dict) -> dict:
+    def _connect(self, params : dict, url) -> dict:
         pass
 
     @abstractmethod
@@ -23,21 +23,21 @@ class HeadHunterApi(Connector):
     с заданным текстом и страницей для поиска.
     """
 
-    def __init__(self, url : str, headers : dict) -> None:
-        self.__url = url
+    def __init__(self, headers : dict) -> None:
         self.__headers = headers
 
-    def _connect(self, params : dict) -> Any:
+    def _connect(self, params : dict, url) -> Any:
         try:
-            response = requests.get(self.__url, headers=self.__headers, params=params)
+            response = requests.get(url, headers=self.__headers, params=params)
             response.raise_for_status()
             return response.json()
         except requests.exceptions.HTTPError:
             return {}
 
     def get_vacancies(self, text :str = "", page : int = 0) -> Any:
+        url = "https://api.hh.ru/vacancies"
         params = {"text": text, "page": page, "per_page": 100}
-        data = self._connect(params)
+        data = self._connect(params, url)
         return data.get("items", [])
 
     def get_employers(self, text : str = "", ):

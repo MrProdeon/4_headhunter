@@ -3,7 +3,7 @@ from src.FileWorker import JsonWorker
 from src.Vacancy import Vacancy
 from utils.functions import dicts_to_objects, end_or_continue, print_vacancies, ranged_vacancies, top_n
 
-hh_api = HeadHunterApi("https://api.hh.ru/vacancies", {"User-Agent": "test for skypro"})
+hh_api = HeadHunterApi({"User-Agent": "test for skypro"})
 json_worker = JsonWorker("data/json_data.json")
 
 
