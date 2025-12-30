@@ -10,13 +10,15 @@ class Vacancy:
     Так же проверяем указано ли название. Если нет, то прописываем Без названия.
     """
 
-    __slots__ = ("title", "link", "salary_from", "salary_to", "description")
+    __slots__ = ("title", "link", "salary_from", "salary_to", "description", "employer", "employer_id")
 
-    def __init__(self, title: str, link: str, salary_from: int | float | None, salary_to: int | float | None):
+    def __init__(self, title: str, link: str, salary_from: int | float | None, salary_to: int | float | None, employer : str, employer_id : str):
         self.title = self.__validate_title(title)
         self.link = link
         self.salary_from = self.__validate_salary(salary_from)
         self.salary_to = self.__validate_salary(salary_to)
+        self.employer = employer
+        self.employer_id = employer_id
 
     def __gt__(self, other : Vacancy | int | float) -> bool:
         if isinstance(other, Vacancy):
@@ -80,5 +82,5 @@ class Vacancy:
             salary_from = salary.get("from") if salary else None
             salary_to = salary.get("to") if salary else None
 
-            vacancy_list.append(Vacancy(vacancy["name"], vacancy["alternate_url"], salary_from, salary_to))
+            vacancy_list.append(Vacancy(vacancy["name"], vacancy["alternate_url"], salary_from, salary_to, vacancy["employer"]["name"], vacancy["employer"]["id"]))
         return vacancy_list
