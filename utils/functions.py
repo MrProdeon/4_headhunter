@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from src.Vacancy import Vacancy
+from src.connector import Connector
 
 
 def top_n(vacancies: list[Vacancy], n: int) -> list:
@@ -62,3 +63,23 @@ def end_or_continue() -> bool:
     if user_input == "1":
         return True
     return False
+
+def get_objects_with_employers(connector_object : Connector):
+    """Функция для получения всех вакансий определенного работодателя, используя его айди.
+    Вернет список списков, в котором каждый список - это вакансии определенного работодателя.
+    """
+    vacancies = []
+    for i in connector_object.get_ids(connector_object.get_employers()):
+        keys = i.keys()
+        vacancies.append(obj.get_vacancies(employer_id=list(keys)[0]))
+    employer_list = []
+    for i in vacancies:
+        all_vacancies = Vacancy.cast_to_object_list(i)
+        employer_list.append(all_vacancies)
+    resulted_employer_list = []
+    for j in employer_list:
+        result = []
+        for o in j:
+            result.append(o)
+        resulted_employer_list.append(result)
+    return resulted_employer_list
