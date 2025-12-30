@@ -1,13 +1,21 @@
+import os
+
 import psycopg2
 from src.connector import HeadHunterApi
 from utils.functions import get_objects_with_employers
+from dotenv import load_dotenv
+from os import getenv
+
+load_dotenv()
+PASSWORD = os.getenv("DB_PASSOWRD")
+DB_NAME = os.getenv("DB_NAME")
 
 # СОЗДАНИЕ И ЗАПОЛНЕНИЕ БАЗЫ ДАННЫХ
 
 conn = psycopg2.connect(
-    dbname="postgres",
+    dbname=DB_NAME,
     user="postgres",
-    password="21Quaswexexort",
+    password=PASSWORD,
     host="localhost",
     port=5432
 )
@@ -20,9 +28,9 @@ except psycopg2.errors.DuplicateDatabase:
     print("База данных уже создана.")
 
 my_conn = psycopg2.connect(
-    dbname="headhunter",
+    dbname=DB_NAME,
     user="postgres",
-    password="21Quaswexexort",
+    password=PASSWORD,
     host="localhost",
     port=5432
 )
