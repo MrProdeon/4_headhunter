@@ -5,7 +5,7 @@ from unittest.mock import mock_open, patch
 from src.FileWorker import JsonWorker
 from src.Vacancy import Vacancy
 
-vacancy = Vacancy("developer", "https", 90000, 100000)
+vacancy = Vacancy("developer", "https", 90000, 100000, "test1", "1")
 
 
 def test_json_worker():
