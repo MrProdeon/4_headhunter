@@ -39,9 +39,9 @@ class DBManager:
         :return: список кортежей, где каждый кортеж - данные об одной строке в таблице
         """
 
-        sql = """SELECT company_name, COUNT(*) FROM employers
-        JOIN vacancies USING(employer_id)
-        GROUP BY company_name"""
+        sql = """SELECT company_name, COUNT(vacancy_id) FROM employers
+                 LEFT JOIN vacancies USING(employer_id)
+                 GROUP BY company_name"""
         with self.connect() as conn:
             with conn.cursor() as cur:
                 cur.execute(sql)
@@ -67,7 +67,7 @@ class DBManager:
 
     def get_avg_salary(self):
         """
-        Метод для получения средней зарплаты по вакансиям из таблицы со всеми вакансий.
+        Метод для получения средней зарплаты по вакансиям из таблицы со всеми вакансиями.
         :return: Число, которое является средней зарплатой по всем вакансиям из таблицы
         """
 
@@ -79,6 +79,10 @@ class DBManager:
                 return result[0]
 
     def get_vacancies_with_higher_salary(self):
+        """
+        Получение вакансий с зарплатой, которая выше средней по всем вакансиям.
+        :return:  список кортежей, где каждый кортеж - вакансия с ЗП выше средней.
+        """
         sql = """SELECT * FROM vacancies
         WHERE max_salary > 
         (SELECT AVG(max_salary) FROM vacancies)"""
@@ -89,6 +93,9 @@ class DBManager:
                 return cur.fetchall()
 
     def get_vacancies_with_keyword(self, searched_word : str):
+        """Получение вакансий с поиском по ключевому слову
+        :return: список кортежей, где каждый кортеж - вакансия с искомым ключевым словом.
+        """
         sql = f"""SELECT *
                   FROM vacancies
                   WHERE title ILIKE '%{searched_word}%'"""
@@ -97,8 +104,6 @@ class DBManager:
             with conn.cursor() as cur:
                 cur.execute(sql)
                 return cur.fetchall()
-
-
 
 
 
