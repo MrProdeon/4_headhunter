@@ -2,6 +2,10 @@ from __future__ import annotations
 
 from src.Vacancy import Vacancy
 from src.connector import HeadHunterApi
+from src.FileWorker import JsonWorker
+
+hh_api = HeadHunterApi({"User-Agent": "test for skypro"})
+json_worker = JsonWorker("data/json_data.json")
 
 
 def top_n(vacancies: list[Vacancy], n: int) -> list:
@@ -64,7 +68,8 @@ def end_or_continue() -> bool:
         return True
     return False
 
-def get_objects_with_employers(connector_object : HeadHunterApi):
+
+def get_objects_with_employers(connector_object: HeadHunterApi):
     """Функция для получения всех вакансий определенного работодателя, используя его айди.
     Вернет список списков, в котором каждый список - это вакансии определенного работодателя.
     """
@@ -83,6 +88,7 @@ def get_objects_with_employers(connector_object : HeadHunterApi):
             result.append(o)
         resulted_employer_list.append(result)
     return resulted_employer_list
+
 
 def only_vacancies() -> None:
     while True:
