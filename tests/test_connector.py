@@ -15,7 +15,9 @@ def test_headhunter_api(mock_get):
 
     hh_api = HeadHunterApi({"User-Agent": "test for skypro"})
 
-    assert hh_api._connect(params, url="https://api.hh.ru/vacancies") == {"items": [{"id": 1, "name": "python-developer", "salary": 90000}]}
+    assert hh_api._connect(params, url="https://api.hh.ru/vacancies") == {
+        "items": [{"id": 1, "name": "python-developer", "salary": 90000}]
+    }
     assert hh_api.get_vacancies() == [{"id": 1, "name": "python-developer", "salary": 90000}]
 
 
@@ -23,7 +25,7 @@ def test_headhunter_api(mock_get):
 def test_headhunter_api_error(mock_get):
     mock_get.return_value.raise_for_status.side_effect = requests.exceptions.HTTPError()
     hh_api = HeadHunterApi({"User-Agent": "test for skypro"})
-    try_connect = hh_api._connect(params,url="https://api.hh.ru/vacancies")
+    try_connect = hh_api._connect(params, url="https://api.hh.ru/vacancies")
 
     assert try_connect == None
 
