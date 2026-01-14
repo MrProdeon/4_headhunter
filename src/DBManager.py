@@ -1,11 +1,12 @@
 import psycopg2
 
+
 class DBManager:
     """
     Класс для работы с базой данных, направлен на получение информации о работодателях и вакансиях.
     """
 
-    def __init__(self, dbname, password, user: str = "postgres", host : str = "localhost", port : int = 5432):
+    def __init__(self, dbname, password, user: str = "postgres", host: str = "localhost", port: int = 5432):
         """
         Инициализация направлена на получение информации о базе данных, к которой
         будет происходить подключение.
@@ -26,11 +27,9 @@ class DBManager:
         Метод для получения коннекта к базе данных
         :return: объект коннекта с подключенной базой данных
         """
-        conn = psycopg2.connect(dbname=self.__dnname,
-                                password=self.__password,
-                                user=self.user,
-                                host=self.host,
-                                port=self.port)
+        conn = psycopg2.connect(
+            dbname=self.__dnname, password=self.__password, user=self.user, host=self.host, port=self.port
+        )
         return conn
 
     def get_companies_and_vacancies_count(self):
@@ -63,8 +62,6 @@ class DBManager:
                 cur.execute(sql)
                 return cur.fetchall()
 
-
-
     def get_avg_salary(self):
         """
         Метод для получения средней зарплаты по вакансиям из таблицы со всеми вакансиями.
@@ -83,29 +80,26 @@ class DBManager:
         Получение вакансий с зарплатой, которая выше средней по всем вакансиям.
         :return:  список кортежей, где каждый кортеж - вакансия с ЗП выше средней.
         """
-        sql = """SELECT * FROM vacancies
-        WHERE max_salary > 
-        (SELECT AVG(max_salary) FROM vacancies)"""
+        sql = """SELECT company_name, title, salary_from, salary_to, url FROM vacancies
+                 JOIN employers USING(employer_id)
+                 WHERE max_salary > 
+                 (SELECT AVG(max_salary) FROM vacancies)"""
 
         with self.connect() as conn:
             with conn.cursor() as cur:
                 cur.execute(sql)
                 return cur.fetchall()
 
-    def get_vacancies_with_keyword(self, searched_word : str):
+    def get_vacancies_with_keyword(self, searched_word: str):
         """Получение вакансий с поиском по ключевому слову
         :return: список кортежей, где каждый кортеж - вакансия с искомым ключевым словом.
         """
-        sql = f"""SELECT *
+        sql = f"""SELECT company_name, title, salary_from, salary_to, url
                   FROM vacancies
+                  JOIN employers USING(employer_id)
                   WHERE title ILIKE '%{searched_word}%'"""
 
         with self.connect() as conn:
             with conn.cursor() as cur:
                 cur.execute(sql)
                 return cur.fetchall()
-
-
-
-
-
