@@ -78,9 +78,24 @@ class Vacancy:
         """Методя для преобразования списка словарей в список объектов класса Vacancy"""
         vacancy_list = []
         for vacancy in vacancies:
+
+            employer = vacancy.get("employer")
+            if not employer or "id" not in employer:
+                continue
+
             salary = vacancy.get("salary")
             salary_from = salary.get("from") if salary else None
             salary_to = salary.get("to") if salary else None
 
-            vacancy_list.append(Vacancy(vacancy["name"], vacancy["alternate_url"], salary_from, salary_to, vacancy["employer"]["name"], vacancy["employer"]["id"]))
+            vacancy_list.append(
+                Vacancy(
+                    vacancy.get("name", "No name"),
+                    vacancy.get("alternate_url", ""),
+                    salary_from,
+                    salary_to,
+                    vacancy.get("employer", {}).get("name", "No employer"),
+                    vacancy.get("employer", {}).get("id", 0)
+                )
+            )
+
         return vacancy_list
