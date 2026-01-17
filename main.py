@@ -1,14 +1,13 @@
 from src.connector import HeadHunterApi
 from src.FileWorker import JsonWorker
-from src.Vacancy import Vacancy
-from utils.functions import dicts_to_objects, end_or_continue, print_vacancies, ranged_vacancies, top_n, only_vacancies
 from utils.database_functions import database_vacancies_and_employers
+from utils.functions import only_vacancies
 
 hh_api = HeadHunterApi({"User-Agent": "test for skypro"})
 json_worker = JsonWorker("data/json_data.json")
 
 
-def main():
+def main() -> None:
     while True:
         user_choise = ""
         while user_choise not in ("1", "2"):

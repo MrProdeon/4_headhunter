@@ -1,8 +1,8 @@
 import json
 from abc import ABC, abstractmethod
+from typing import Any
 
 from src.Vacancy import Vacancy
-from typing import Any
 
 
 class FileWorker(ABC):

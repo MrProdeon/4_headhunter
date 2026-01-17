@@ -1,8 +1,8 @@
 from __future__ import annotations
 
-from src.Vacancy import Vacancy
 from src.connector import HeadHunterApi
 from src.FileWorker import JsonWorker
+from src.Vacancy import Vacancy
 
 hh_api = HeadHunterApi({"User-Agent": "test for skypro"})
 json_worker = JsonWorker("data/json_data.json")
@@ -69,7 +69,7 @@ def end_or_continue() -> bool:
     return False
 
 
-def get_objects_with_employers(connector_object: HeadHunterApi):
+def get_objects_with_employers(connector_object: HeadHunterApi) -> list:
     """Функция для получения всех вакансий определенного работодателя, используя его айди.
     Вернет список списков, в котором каждый список - это вакансии определенного работодателя.
     """
@@ -90,7 +90,7 @@ def get_objects_with_employers(connector_object: HeadHunterApi):
     return resulted_employer_list
 
 
-def only_vacancies() -> None:
+def only_vacancies() -> None: # pragma: no cover
     while True:
         try:
             target = sorted(
