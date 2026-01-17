@@ -1,17 +1,15 @@
-import json
 import time
 from abc import ABC, abstractmethod
-from src.Vacancy import Vacancy
+from typing import Any
 
 import requests
-from typing import Any
 
 
 class Connector(ABC):
     """Абстрактный класс для подключения к АПИ хедхантера."""
 
     @abstractmethod
-    def _connect(self, params: dict, url) -> dict:
+    def _connect(self, params: dict, url : str) -> dict:
         pass
 
     @abstractmethod
@@ -28,7 +26,7 @@ class HeadHunterApi(Connector):
     def __init__(self, headers: dict) -> None:
         self.__headers = headers
 
-    def _connect(self, params: dict, url) -> Any:
+    def _connect(self, params: dict, url : str) -> Any:
         try:
             response = requests.get(url, headers=self.__headers, params=params)
             response.raise_for_status()
@@ -37,7 +35,7 @@ class HeadHunterApi(Connector):
             print(f"HH API error: {e}")
             return None
 
-    def get_vacancies(self, text: str = "", page: int = 0, employer_id=None) -> Any:
+    def get_vacancies(self, text: str = "", page: int = 0, employer_id : str | None=None) -> Any:
         url = "https://api.hh.ru/vacancies"
         full_data = []
 
@@ -69,23 +67,11 @@ class HeadHunterApi(Connector):
 
         return full_data
 
-    def get_employers(self, text: str = ""):
+    def get_employers(self, companies : list[str],text: str = "") -> list:
         """
         Метод для получения желаемых работодателей. На данный момент работодатели зафиксированы в самом методе.
         Метод возвращает список списков, в котором каждый вложенный список - это искомые работодатели по их названию.
         """
-        companies = [
-            "Т-Банк",
-            "Selectel",
-            "X5 Tech",
-            "Ozon Tech",
-            "АВИТО ТЕХ",
-            "Сбер Банк",
-            "Альфа-Банк",
-            "VK",
-            "Kaspersky",
-            "Skyeng",
-        ]
         url = "https://api.hh.ru/employers"
         data = []
 
@@ -97,7 +83,7 @@ class HeadHunterApi(Connector):
         return data
 
     @staticmethod
-    def get_ids(companies: list):
+    def get_ids(companies: list) -> list:
         """Метод для получения айди компаний после того как был получен ответ от хедхантера об основной информации
         о компании.
         Вернет список словаей, где каждый словарь - айди компании и её название."""
