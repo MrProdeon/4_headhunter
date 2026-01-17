@@ -1,13 +1,29 @@
-import psycopg2
-from src.connector import HeadHunterApi
-from utils.functions import get_objects_with_employers, end_or_continue
-from dotenv import load_dotenv
 from os import getenv
+
+import psycopg2
+from psycopg2.extensions import connection
+from dotenv import load_dotenv
+
+from src.connector import HeadHunterApi
 from src.DBManager import DBManager
+from utils.functions import end_or_continue, get_objects_with_employers
 
 load_dotenv()
-PASSWORD = getenv("DB_PASSOWRD")
-DB_NAME = getenv("DB_NAME")
+PASSWORD = getenv("DB_PASSOWRD", "postgres")
+DB_NAME = getenv("DB_NAME", "postgres")
+
+companies = [
+            "Т-Банк",
+            "Selectel",
+            "X5 Tech",
+            "Ozon Tech",
+            "АВИТО ТЕХ",
+            "Сбер Банк",
+            "Альфа-Банк",
+            "VK",
+            "Kaspersky",
+            "Skyeng",
+        ]
 
 
 def create_database() -> None:
@@ -22,7 +38,7 @@ def create_database() -> None:
         print("База данных уже создана...")
 
 
-def get_connection():
+def get_connection() -> connection:
     return psycopg2.connect(dbname=DB_NAME, user="postgres", password=PASSWORD, host="localhost", port=5432)
 
 
@@ -52,7 +68,7 @@ def create_tables() -> None:
 def insert_database() -> None:
     print("Приступаем к получению данных о работодателях. Ожидайте...")
     obj = HeadHunterApi({"User-Agent": "test for skypro"})
-    employers = obj.get_employers()
+    employers = obj.get_employers(companies)
 
     employers_for_insert = []
     for company in employers:
@@ -106,7 +122,7 @@ def insert_database() -> None:
 headhunter_db = DBManager(DB_NAME, PASSWORD)
 
 
-def database_vacancies_and_employers():
+def database_vacancies_and_employers() -> None: # pragma: no cover
     print("Вы выбрали работу с базой данных. Для её создания и заполнения требуется больше времени. Ожидайте.")
 
     print("Таблицы успешно заполнены.")
