@@ -1,4 +1,6 @@
 import psycopg2
+from psycopg2.extensions import connection
+from typing import Any
 
 
 class DBManager:
@@ -6,7 +8,7 @@ class DBManager:
     Класс для работы с базой данных, направлен на получение информации о работодателях и вакансиях.
     """
 
-    def __init__(self, dbname, password, user: str = "postgres", host: str = "localhost", port: int = 5432):
+    def __init__(self, dbname : str, password : str, user: str = "postgres", host: str = "localhost", port: int = 5432) -> None:
         """
         Инициализация направлена на получение информации о базе данных, к которой
         будет происходить подключение.
@@ -22,7 +24,7 @@ class DBManager:
         self.host = host
         self.port = port
 
-    def connect(self):
+    def connect(self) -> connection:
         """
         Метод для получения коннекта к базе данных
         :return: объект коннекта с подключенной базой данных
@@ -32,7 +34,7 @@ class DBManager:
         )
         return conn
 
-    def get_companies_and_vacancies_count(self):
+    def get_companies_and_vacancies_count(self) -> list[tuple]:
         """
         Метод для получения списка всех компаний и количества вакансий у каждой компании
         :return: список кортежей, где каждый кортеж - данные об одной строке в таблице
@@ -46,7 +48,7 @@ class DBManager:
                 cur.execute(sql)
                 return cur.fetchall()
 
-    def get_all_vacancies(self):
+    def get_all_vacancies(self) -> list[tuple]:
         """
         Метод для получения списка всех ваканий с указанием названия компании,
         названия вакансии и зарплаты и ссылки на вакансию
@@ -62,7 +64,7 @@ class DBManager:
                 cur.execute(sql)
                 return cur.fetchall()
 
-    def get_avg_salary(self):
+    def get_avg_salary(self) -> Any:
         """
         Метод для получения средней зарплаты по вакансиям из таблицы со всеми вакансиями.
         :return: Число, которое является средней зарплатой по всем вакансиям из таблицы
@@ -73,9 +75,13 @@ class DBManager:
             with conn.cursor() as cur:
                 cur.execute(sql)
                 result = cur.fetchone()
+
+                if result is None:
+                    return None
+
                 return result[0]
 
-    def get_vacancies_with_higher_salary(self):
+    def get_vacancies_with_higher_salary(self) -> list[tuple]:
         """
         Получение вакансий с зарплатой, которая выше средней по всем вакансиям.
         :return:  список кортежей, где каждый кортеж - вакансия с ЗП выше средней.
@@ -90,7 +96,7 @@ class DBManager:
                 cur.execute(sql)
                 return cur.fetchall()
 
-    def get_vacancies_with_keyword(self, searched_word: str):
+    def get_vacancies_with_keyword(self, searched_word: str) -> list[tuple]:
         """Получение вакансий с поиском по ключевому слову
         :return: список кортежей, где каждый кортеж - вакансия с искомым ключевым словом.
         """
