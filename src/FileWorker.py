@@ -1,8 +1,8 @@
 import json
 from abc import ABC, abstractmethod
+from typing import Any
 
 from src.Vacancy import Vacancy
-from typing import Any
 
 
 class FileWorker(ABC):
@@ -12,7 +12,7 @@ class FileWorker(ABC):
         pass
 
     @abstractmethod
-    def add_data(self, vacancy : Vacancy) -> None:
+    def add_data(self, vacancy: Vacancy) -> None:
         pass
 
     @abstractmethod
@@ -22,7 +22,7 @@ class FileWorker(ABC):
 
 class JsonWorker(FileWorker):
 
-    def __init__(self, filename : str ="data/json_data.json") -> None:
+    def __init__(self, filename: str = "data/json_data.json") -> None:
         self.__filename = filename
 
     def get_data(self) -> Any:
