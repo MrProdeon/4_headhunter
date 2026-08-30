@@ -1,5 +1,3 @@
-from src.FileWorker import JsonWorkerfrom utils.functions import print_vacanciesfrom src.FileWorker import JsonWorkerfrom main import json_workerfrom src.connector import HeadHunterApi
-
 ## Вакансии Хедхантера.
 
 ### В репозитории происходит разработка функционала для работы с вакансиями на сайте HeadHunter
