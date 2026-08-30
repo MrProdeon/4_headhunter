@@ -1,0 +1,236 @@
+[
+    {
+        "title": "Data Engineer/Дата инженер (Junior)",
+        "link": "https://hh.ru/vacancy/127891259",
+        "salary_from": 0,
+        "salary_to": 100000
+    },
+    {
+        "title": "Junior Data Analyst/Аналитик данных",
+        "link": "https://hh.ru/vacancy/127825352",
+        "salary_from": 90000,
+        "salary_to": 0
+    },
+    {
+        "title": "Junior System Analyst/Cистемный аналитик",
+        "link": "https://hh.ru/vacancy/128373161",
+        "salary_from": 90000,
+        "salary_to": 0
+    },
+    {
+        "title": "Младший аналитик данных",
+        "link": "https://hh.ru/vacancy/128545820",
+        "salary_from": 80000,
+        "salary_to": 0
+    },
+    {
+        "title": "Junior Backend разработчик",
+        "link": "https://hh.ru/vacancy/128373566",
+        "salary_from": 80000,
+        "salary_to": 0
+    },
+    {
+        "title": "Junior Python разработчик",
+        "link": "https://hh.ru/vacancy/127787674",
+        "salary_from": 80000,
+        "salary_to": 0
+    },
+    {
+        "title": "Python-разработчик (фитнес-клуб)",
+        "link": "https://hh.ru/vacancy/127957890",
+        "salary_from": 80000,
+        "salary_to": 0
+    },
+    {
+        "title": "Дата инженер / аналитик данных / Junior",
+        "link": "https://hh.ru/vacancy/128447396",
+        "salary_from": 30000,
+        "salary_to": 80000
+    },
+    {
+        "title": "Младший сетевой инженер",
+        "link": "https://hh.ru/vacancy/128257888",
+        "salary_from": 80000,
+        "salary_to": 0
+    },
+    {
+        "title": "Тестировщик / QA + 2nd line support",
+        "link": "https://hh.ru/vacancy/129339740",
+        "salary_from": 120000,
+        "salary_to": 0
+    },
+    {
+        "title": "Python-программист (junior)",
+        "link": "https://hh.ru/vacancy/129440894",
+        "salary_from": 120000,
+        "salary_to": 0
+    },
+    {
+        "title": "Аналитик данных",
+        "link": "https://hh.ru/vacancy/129345022",
+        "salary_from": 80000,
+        "salary_to": 120000
+    },
+    {
+        "title": "AI-интегратор (n8n)",
+        "link": "https://hh.ru/vacancy/129384112",
+        "salary_from": 120000,
+        "salary_to": 0
+    },
+    {
+        "title": "Тестировщик",
+        "link": "https://hh.ru/vacancy/129209570",
+        "salary_from": 80000,
+        "salary_to": 120000
+    },
+    {
+        "title": "Fullstack-разработчик",
+        "link": "https://hh.ru/vacancy/129481672",
+        "salary_from": 100000,
+        "salary_to": 120000
+    },
+    {
+        "title": "Аналитик данных продаж на маркетплейсах",
+        "link": "https://hh.ru/vacancy/129471097",
+        "salary_from": 120000,
+        "salary_to": 0
+    },
+    {
+        "title": "SEO-специалист (Сеошник)",
+        "link": "https://hh.ru/vacancy/129435529",
+        "salary_from": 60000,
+        "salary_to": 120000
+    },
+    {
+        "title": "Fullstack-разработчик",
+        "link": "https://hh.ru/vacancy/129405957",
+        "salary_from": 120000,
+        "salary_to": 0
+    },
+    {
+        "title": "AI Prompt & Portfolio Engineer Intern (AI Software)",
+        "link": "https://hh.ru/vacancy/126791452",
+        "salary_from": 0,
+        "salary_to": 120000
+    },
+    {
+        "title": "Ночной Интегратор Битрикс 24",
+        "link": "https://hh.ru/vacancy/128561087",
+        "salary_from": 70000,
+        "salary_to": 120000
+    },
+    {
+        "title": "Инженер linux",
+        "link": "https://hh.ru/vacancy/128541190",
+        "salary_from": 0,
+        "salary_to": 120000
+    },
+    {
+        "title": "Data Engineer (junior+)",
+        "link": "https://hh.ru/vacancy/129233043",
+        "salary_from": 0,
+        "salary_to": 120000
+    },
+    {
+        "title": "Инженер технической поддержки L3",
+        "link": "https://hh.ru/vacancy/129340019",
+        "salary_from": 100000,
+        "salary_to": 120000
+    },
+    {
+        "title": "QA-auto специалист",
+        "link": "https://hh.ru/vacancy/127991008",
+        "salary_from": 60000,
+        "salary_to": 120000
+    },
+    {
+        "title": "AI-Инженер (г. Владимир)",
+        "link": "https://hh.ru/vacancy/128674988",
+        "salary_from": 120000,
+        "salary_to": 0
+    },
+    {
+        "title": "Middle Python + DevOps разработчик",
+        "link": "https://hh.ru/vacancy/129175240",
+        "salary_from": 60000,
+        "salary_to": 120000
+    },
+    {
+        "title": "Data Engineer (junior+)",
+        "link": "https://hh.ru/vacancy/129232713",
+        "salary_from": 0,
+        "salary_to": 120000
+    },
+    {
+        "title": "Project Coordinator",
+        "link": "https://hh.ru/vacancy/127158660",
+        "salary_from": 100000,
+        "salary_to": 120000
+    },
+    {
+        "title": "PHP-разработчик + Python",
+        "link": "https://hh.ru/vacancy/129162301",
+        "salary_from": 100000,
+        "salary_to": 120000
+    },
+    {
+        "title": "Lead Fullstack AI Engineer (Python + JS)",
+        "link": "https://hh.ru/vacancy/129039853",
+        "salary_from": 60000,
+        "salary_to": 120000
+    },
+    {
+        "title": "Репетитор по Информатике (Начинающий)",
+        "link": "https://hh.ru/vacancy/129209222",
+        "salary_from": 60000,
+        "salary_to": 120000
+    },
+    {
+        "title": "Backend Engineer (Python, Async)",
+        "link": "https://hh.ru/vacancy/129504170",
+        "salary_from": 120000,
+        "salary_to": 0
+    },
+    {
+        "title": "Junior Python разработчик",
+        "link": "https://hh.ru/vacancy/129284357",
+        "salary_from": 70000,
+        "salary_to": 110000
+    },
+    {
+        "title": "Системный инженер",
+        "link": "https://hh.ru/vacancy/129348087",
+        "salary_from": 110000,
+        "salary_to": 0
+    },
+    {
+        "title": "Репетитор по Информатике",
+        "link": "https://hh.ru/vacancy/128543198",
+        "salary_from": 60000,
+        "salary_to": 110000
+    },
+    {
+        "title": "Разработчик Blender / 3D Technical Artist",
+        "link": "https://hh.ru/vacancy/121938140",
+        "salary_from": 108000,
+        "salary_to": 0
+    },
+    {
+        "title": "Frontend-разработчик Javascript",
+        "link": "https://hh.ru/vacancy/126926472",
+        "salary_from": 105000,
+        "salary_to": 0
+    },
+    {
+        "title": "Python-разработчик",
+        "link": "https://hh.ru/vacancy/129504253",
+        "salary_from": 80000,
+        "salary_to": 100000
+    },
+    {
+        "title": "Тестировщик",
+        "link": "https://hh.ru/vacancy/129286730",
+        "salary_from": 70000,
+        "salary_to": 100000
+    }
+]

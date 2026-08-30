@@ -1,55 +1,95 @@
+import time
 from abc import ABC, abstractmethod
+from typing import Any
+
 import requests
-import json
-from src.
+
 
 class Connector(ABC):
-
     """Абстрактный класс для подключения к АПИ хедхантера."""
 
     @abstractmethod
-    def _connect(self, params):
+    def _connect(self, params: dict, url : str) -> dict:
         pass
 
     @abstractmethod
-    def get_vacancies(self):
+    def get_vacancies(self) -> list[dict]:
         pass
 
 
-
-
 class HeadHunterApi(Connector):
-
     """Класс для подключения к апи хедхантера.
     Имеет метод для get-подключения к апи, а так же метод именно для подключения к поиску вакансий
     с заданным текстом и страницей для поиска.
     """
 
-    def __init__(self, url, headers):
-        self.__url = url
+    def __init__(self, headers: dict) -> None:
         self.__headers = headers
 
-    def _connect(self, params):
+    def _connect(self, params: dict, url : str) -> Any:
         try:
-            response = requests.get(self.__url, headers=self.__headers, params=params)
+            response = requests.get(url, headers=self.__headers, params=params)
             response.raise_for_status()
             return response.json()
-        except requests.exceptions.HTTPError:
-            return {}
+        except requests.exceptions.HTTPError as e:
+            print(f"HH API error: {e}")
+            return None
 
-    def get_vacancies(self, text="", page=0):
-        params = {"text" : text, "page" : page, "per_page" : 100}
-        data = self._connect(params)
-        return json.dumps(data.get("items", []), indent=4, ensure_ascii=False)
+    def get_vacancies(self, text: str = "", page: int = 0, employer_id : str | None=None) -> Any:
+        url = "https://api.hh.ru/vacancies"
+        full_data = []
 
-    def  cast_to_object_list(self, vacancies : list[dict]):
-        vacancy_list = [
-            for vacancy in vacancies
-        ]
+        while True:
+            time.sleep(0.5)
 
+            params = {"text": text, "page": page, "per_page": 100, "only_with_salary": True}
 
+            if employer_id:
+                params["employer_id"] = employer_id
 
-if __name__ == "__main__":
+            data = self._connect(params, url)
 
-    obj = HeadHunterApi("https://api.hh.ru/vacancies", {"User-Agent" : "test for skypro"})
-    print(obj.get_vacancies(text="python"))
+            if not data:
+                break
+
+            searched_data = data.get("items", [])
+            full_data.extend(searched_data)
+
+            pages = data.get("pages")
+
+            if pages is None:
+                break
+
+            if page < pages - 1:
+                page += 1
+            else:
+                break
+
+        return full_data
+
+    def get_employers(self, companies : list[str],text: str = "") -> list:
+        """
+        Метод для получения желаемых работодателей. На данный момент работодатели зафиксированы в самом методе.
+        Метод возвращает список списков, в котором каждый вложенный список - это искомые работодатели по их названию.
+        """
+        url = "https://api.hh.ru/employers"
+        data = []
+
+        for company in companies:
+            params = {"text": f"{company}", "only_with_vacancies": True, "page": 0, "per_page": 100}
+            response = self._connect(params, url)
+            data.append(response["items"])
+
+        return data
+
+    @staticmethod
+    def get_ids(companies: list) -> list:
+        """Метод для получения айди компаний после того как был получен ответ от хедхантера об основной информации
+        о компании.
+        Вернет список словаей, где каждый словарь - айди компании и её название."""
+        ids = []
+        for i in companies:
+            for j in i:
+                ids.append({j["id"]: j["name"]})
+
+        return ids
